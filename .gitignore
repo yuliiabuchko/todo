@@ -213,3 +213,5 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+Pipfile.lock
