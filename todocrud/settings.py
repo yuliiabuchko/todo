@@ -25,7 +25,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'accounts.apps.AccountsConfig',
     'frontend.apps.FrontendConfig',
-    'todos.apps.TodosConfig',
+    'todos.apps.TasksConfig',
     'rest_framework',
     'knox',
     'django.contrib.admin',
