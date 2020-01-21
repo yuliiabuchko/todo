@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
 
+
 class Task(models.Model):
     task = models.CharField(max_length=255)
     owner = models.ForeignKey(
@@ -13,6 +14,7 @@ class Task(models.Model):
 
     def __str__(self):
         return self.task
+
 
 class Statistic(models.Model):
     owner = models.ForeignKey(
@@ -28,13 +30,14 @@ class Statistic(models.Model):
         (MINUTES, "MINUTES")
     ]
     unit = models.CharField(
-        choices = UNITS_CHOISES,
-        default = HOURS,
-        max_length = 3
+        choices=UNITS_CHOISES,
+        default=HOURS,
+        max_length=3
     )
 
     def __str__(self):
         return self.name
+
 
 class Entry(models.Model):
     statistic = models.ForeignKey(
@@ -51,11 +54,12 @@ class Entry(models.Model):
     def __int__(self):
         return float(self.__float__())
 
+
 class Event(models.Model):
     owner = models.ForeignKey(
         User, related_name="events", on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255*10)
+    description = models.CharField(max_length=255 * 10)
     date = models.DateField(
         auto_now=False, auto_now_add=False, default=date.today
     )
