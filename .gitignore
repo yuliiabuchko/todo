@@ -67,7 +67,7 @@ coverage.xml
 *.mo
 
 # Django stuff:
-
+todos/migrations
 # Flask stuff:
 instance/
 .webassets-cache
