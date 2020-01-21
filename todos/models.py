@@ -13,7 +13,7 @@ class Todo(models.Model):
 
 class Statistic(models.Model):
     owner = models.ForeignKey(
-        User, on_delete=models.CASCADE, null=False
+        User, related_name="statistics", on_delete=models.CASCADE, null=False
     )
     name = models.CharField(max_length=255)
     HOURS = "h"
@@ -35,7 +35,7 @@ class Statistic(models.Model):
 
 class Entry(models.Model):
     statistic = models.ForeignKey(
-        Statistic, on_delete=models.CASCADE, null=False
+        Statistic, related_name="entries", on_delete=models.CASCADE, null=False
     )
     value = models.FloatField()
     date = models.DateField(
@@ -49,6 +49,8 @@ class Entry(models.Model):
         return float(self.__float__())
 
 class Event(models.Model):
+    owner = models.ForeignKey(
+        User, related_name="events", on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=255)
     description = models.CharField(max_length=255*10)
     date = models.DateField(
