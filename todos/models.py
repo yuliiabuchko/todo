@@ -24,7 +24,7 @@ class Task(models.Model):
 
     @property
     def last_date(self):
-        if self.statuses: 
+        if self.statuses.all():
             return self.statuses.latest('day').day
         else:
             return self.start_day

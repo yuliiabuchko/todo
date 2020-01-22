@@ -1,4 +1,5 @@
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, views
+from rest_framework.response import Response
 from knox import auth
 
 from todos.models import Entry, Week
@@ -41,10 +42,17 @@ class EntryViewSet(viewsets.ModelViewSet):
     queryset = Entry.objects.all()
 
 
-class WeekViewSet(viewsets.ModelViewSet):
+class WeekViewSet(viewsets.ViewSet):
     serializer_class = WeekSerializer
     permission_classes = [permissions.IsAuthenticated, ]
     authentication_classes = [auth.TokenAuthentication, ]
-    # def get_queryset(self):
-    #     queryset = self.request.user.weeks.all()
-    queryset = Week.objects.all()
+
+    def list(self, request):
+        user = self.request.user
+        monday = date.fromisoformat(request.query_params.get("monday"))
+        week = Week(owner=user, monday=monday)
+        return Response(WeekSerializer(many=False, instance=week).data)
+        
+    @classmethod
+    def get_extra_actions(cls):
+        return []
