@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import date
+from datetime import date, timedelta
 
 
 class Task(models.Model):
@@ -14,6 +14,20 @@ class Task(models.Model):
 
     def __str__(self):
         return self.task
+
+    @property
+    def is_done(self):
+        for status in self.statuses.all():
+            if status.result == 'D' or status.result == 'C':
+                return True
+        return False
+
+    @property
+    def last_date(self):
+        if self.statuses: 
+            return self.statuses.latest('day').day
+        else:
+            return self.start_day
 
 
 class Statistic(models.Model):
@@ -83,7 +97,7 @@ class Status(models.Model):
         (CANCELED, 'Canceled'),
     )
 
-    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, related_name="statuses", on_delete=models.CASCADE)
     day = models.DateField()
     result = models.CharField(max_length=1, choices=DAY_PROPERTY)
 
@@ -92,3 +106,12 @@ class Status(models.Model):
 
     class Meta:
         unique_together = (("task", "day"),)
+
+
+class Week(models.Model):
+    monday = models.DateField(auto_now_add=False, auto_now=False, null=False)
+    owner = models.ForeignKey(User, related_name="weeks", on_delete=models.CASCADE)
+
+    def saturday(self):
+        return self.monday + timedelta(days=6)
+    
