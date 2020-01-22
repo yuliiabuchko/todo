@@ -12,6 +12,8 @@ import RegisterForm from './auth/RegisterForm';
 import LoginForm from './auth/LoginForm';
 import PrivateRoute from './common/PrivateRoute';
 
+import DashboardWeek from './weeks/DashboardWeek';
+
 import { Provider } from 'react-redux';
 import store from '../store';
 import { loadUser } from '../actions/auth';

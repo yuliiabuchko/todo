@@ -34,6 +34,7 @@ export const addTodo = formValues => async (dispatch, getState) => {
     payload: res.data
   });
   dispatch(reset('todoForm'));
+  dispatch(reset('weekForm'));
 };
 
 // DELETE TODO
