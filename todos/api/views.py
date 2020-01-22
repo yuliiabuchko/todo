@@ -5,9 +5,6 @@ from todos.models import Entry
 from .serializers import TaskSerializer, EventSerializer, StatisticSerializer, EntrySerializer
 
 
-# from todos.models import Todo
-
-
 class TaskViewSet(viewsets.ModelViewSet):
     serializer_class = TaskSerializer
     permission_classes = [permissions.IsAuthenticated, ]
