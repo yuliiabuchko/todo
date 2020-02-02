@@ -8,6 +8,7 @@ class FunctionField(serializers.Field):
     def to_representation(self, value):
         return str(value)
 
+
 class StatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Status
