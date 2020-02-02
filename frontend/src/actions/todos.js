@@ -60,3 +60,19 @@ export const editTodo = (id, formValues) => async (dispatch, getState) => {
   });
   history.push('/');
 };
+
+export const progressTodo = (status_id) => async (dispatch, getState) => {
+    const prev = await axios.get(`/api/statuses/${status_id}/`, tokenConfig(getState));
+    console.log("prev", prev)
+  const res = await axios.patch(
+    `/api/statuses/${status_id}/`,
+    'S',
+    tokenConfig(getState)
+  );
+  // dispatch({
+  //   type: EDIT_TODO,
+  //   payload: res.data
+  // });
+  history.push('/');
+};
+
