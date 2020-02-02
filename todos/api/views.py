@@ -2,7 +2,8 @@ from rest_framework import viewsets, permissions, views
 from rest_framework.response import Response
 from knox import auth
 from dateutil import parser
-from todos.models import Entry, Week
+
+from todos.models import Entry, Week, Status
 from .serializers import *
 
 
@@ -26,6 +27,9 @@ class EventViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return self.request.user.events.all()
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
 
 class StatisticViewSet(viewsets.ModelViewSet):
     serializer_class = StatisticSerializer
@@ -35,11 +39,20 @@ class StatisticViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return self.request.user.statistics.all()
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
 
 class EntryViewSet(viewsets.ModelViewSet):
     serializer_class = EntrySerializer
     permission_classes = [permissions.IsAuthenticated, ]
     queryset = Entry.objects.all()
+
+
+class StatusViewSet(viewsets.ModelViewSet):
+    serializer_class = StatusSerializer
+    permission_classes = [permissions.IsAuthenticated, ]
+    queryset = Status.objects.all()
 
 
 class WeekViewSet(viewsets.ViewSet):
