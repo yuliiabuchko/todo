@@ -1,8 +1,9 @@
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, views
+from rest_framework.response import Response
 from knox import auth
 
-from todos.models import Entry
-from .serializers import TaskSerializer, EventSerializer, StatisticSerializer, EntrySerializer
+from todos.models import Entry, Week
+from .serializers import *
 
 
 class TaskViewSet(viewsets.ModelViewSet):
@@ -39,3 +40,19 @@ class EntryViewSet(viewsets.ModelViewSet):
     serializer_class = EntrySerializer
     permission_classes = [permissions.IsAuthenticated, ]
     queryset = Entry.objects.all()
+
+
+class WeekViewSet(viewsets.ViewSet):
+    serializer_class = WeekSerializer
+    permission_classes = [permissions.IsAuthenticated, ]
+    authentication_classes = [auth.TokenAuthentication, ]
+
+    def list(self, request):
+        user = self.request.user
+        monday = date.fromisoformat(request.query_params.get("monday"))
+        week = Week(owner=user, monday=monday)
+        return Response(WeekSerializer(many=False, instance=week).data)
+        
+    @classmethod
+    def get_extra_actions(cls):
+        return []
