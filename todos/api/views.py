@@ -1,13 +1,13 @@
 from rest_framework import viewsets, permissions, views
 from rest_framework.response import Response
 from knox import auth
-
+from dateutil import parser
 from todos.models import Entry, Week
 from .serializers import *
 
 
 class TaskViewSet(viewsets.ModelViewSet):
-    serializer_class = TaskSerializer
+    serializer_class = TaskSimpleSerializer
     permission_classes = [permissions.IsAuthenticated, ]
     authentication_classes = [auth.TokenAuthentication, ]
 
@@ -49,7 +49,10 @@ class WeekViewSet(viewsets.ViewSet):
 
     def list(self, request):
         user = self.request.user
-        monday = date.fromisoformat(request.query_params.get("monday"))
+        # monday = date.fromisoformat(request.query_params.get("monday"))
+        monday = parser.parse(request.query_params.get("monday"))
+        monday = monday.date()
+        print(monday)
         week = Week(owner=user, monday=monday)
         return Response(WeekSerializer(many=False, instance=week).data)
         

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TodoCreate from './TodoCreate';
 import TodoList from './TodoList';
+import WeekList from "./WeekList";
 
 class Dashboard extends Component {
   render() {
@@ -8,6 +9,7 @@ class Dashboard extends Component {
       <div className='ui container'>
         <TodoCreate />
         <TodoList />
+        {/*<WeekList />*/}
       </div>
     );
   }

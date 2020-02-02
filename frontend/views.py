@@ -11,3 +11,8 @@ def index(request):
 class TodoDetailView(DetailView):
     model = Task
     template_name = 'frontend/index.html'
+
+
+class WeekDetailView(DetailView):
+    model = Task
+    template_name = 'frontend/week.html'

@@ -4,6 +4,11 @@ from todos.models import *
 import json
 
 
+class TaskSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Task
+        fields = '__all__'
+
 class FunctionField(serializers.Field):
     def to_representation(self, value):
         return str(value)

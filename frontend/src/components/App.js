@@ -15,6 +15,7 @@ import PrivateRoute from './common/PrivateRoute';
 import { Provider } from 'react-redux';
 import store from '../store';
 import { loadUser } from '../actions/auth';
+import WeekList from "./todos/WeekList";
 
 class App extends Component {
   componentDidMount() {
@@ -28,6 +29,7 @@ class App extends Component {
           <Header />
           <Switch>
             <PrivateRoute exact path='/' component={Dashboard} />
+            <Route exact path='/weeks' component={WeekList} />
             <Route exact path='/delete/:id' component={TodoDelete} />
             <Route exact path='/edit/:id' component={TodoEdit} />
             <Route exact path='/register' component={RegisterForm} />

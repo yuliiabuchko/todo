@@ -7,13 +7,44 @@ import {tokenConfig} from "../../actions/auth";
 import {DELETE_TODO} from "../../actions/types";
 import history from "../../history";
 
-class TodoList extends Component {
+class WeekList extends Component {
     componentDidMount() {
         this.props.getTodos();
     }
 
+    getAxiosToWork = monday => {
+        console.log("axios")
+
+        const token = "6f882e0cb79641cd2f0655bcc33fb3389e5605538b41d88abc1e08ea4e43bf4e";
+
+        // Headers
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+
+        if (token) {
+            config.headers['Authorization'] = `Token ${token}`;
+        }
+        // const res = axios.get('/api/weeks/?monday=' + monday, tokenConfig());
+        const res = axios.get('/api/weeks/?monday=' + monday, config);
+
+        console.log("axiosToWork", res);
+
+        Promise.resolve(res).then((jsonResults) => {
+            console.log(jsonResults.data);
+        })
+        // console.log("axiosToWork theb datat:", res.PromiseValue);
+
+
+    }
+
 
     renderWeek() {
+        let monday = '2020-01-20';
+        console.log("before");
+        this.getAxiosToWork(monday);
         return (
             this.props.todos.map(todo => (
                 <div className='item' key={todo.id}>
@@ -39,6 +70,7 @@ class TodoList extends Component {
     render() {
         return (
             <div className='ui relaxed divided list' style={{marginTop: '2rem'}}>
+                <h2>WEEK</h2>
                 {this.renderWeek()}
             </div>
         );
@@ -52,4 +84,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     {getTodos, deleteTodo}
-)(TodoList);
+)(WeekList);

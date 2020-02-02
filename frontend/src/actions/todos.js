@@ -38,6 +38,7 @@ export const addTodo = formValues => async (dispatch, getState) => {
 
 // DELETE TODO
 export const deleteTodo = id => async (dispatch, getState) => {
+  console.log("state in deleteTodo", getState)
   await axios.delete(`/api/todos/${id}/`, tokenConfig(getState));
   dispatch({
     type: DELETE_TODO,
