@@ -4,16 +4,25 @@ import {
   GET_TODO,
   ADD_TODO,
   DELETE_TODO,
-  EDIT_TODO
+  EDIT_TODO, GET_WEEK
 } from '../actions/types';
 
 export default (state = {}, action) => {
   switch (action.type) {
     case GET_TODOS:
+
       return {
         ...state,
         ..._.mapKeys(action.payload, 'id')
       };
+
+    case GET_WEEK:
+      let arr = [action.payload];
+      if (!Array.isArray(state)) {
+        state = [];
+      }
+      return state.concat(arr);
+    // case PROGRESS_TODO:
     case GET_TODO:
     case ADD_TODO:
     case EDIT_TODO:

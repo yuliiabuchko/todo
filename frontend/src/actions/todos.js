@@ -2,7 +2,7 @@ import axios from 'axios';
 import { reset } from 'redux-form';
 import history from '../history';
 import { tokenConfig } from './auth';
-import { GET_TODOS, GET_TODO, ADD_TODO, DELETE_TODO, EDIT_TODO } from './types';
+import {GET_TODOS, GET_TODO, ADD_TODO, DELETE_TODO, EDIT_TODO, GET_WEEK} from './types';
 
 // GET TODOS
 export const getTodos = () => async (dispatch, getState) => {
@@ -61,16 +61,28 @@ export const editTodo = (id, formValues) => async (dispatch, getState) => {
   history.push('/');
 };
 
+export const getWeek = (monday) => async (dispatch, getState) => {
+  const res = await axios.get('/api/weeks/?monday=' + monday, tokenConfig(getState));
+  dispatch({
+    type: GET_WEEK,
+    payload: res.data
+  });
+
+  // return res.data;
+};
+
 export const progressTodo = (status_id) => async (dispatch, getState) => {
+  console.log("progressing todo")
     const prev = await axios.get(`/api/statuses/${status_id}/`, tokenConfig(getState));
     console.log("prev", prev)
-  const res = await axios.patch(
-    `/api/statuses/${status_id}/`,
-    'S',
-    tokenConfig(getState)
-  );
+  prev.data.result = "D";
+  // const res = await axios.patch(
+  //   `/api/statuses/${status_id}/`,
+  //   prev,
+  //   tokenConfig(getState)
+  // );
   // dispatch({
-  //   type: EDIT_TODO,
+  //   type: PROGRESS_TODO,
   //   payload: res.data
   // });
   history.push('/');

@@ -10,6 +10,7 @@ import history from "../../history";
 class TodoList extends Component {
     componentDidMount() {
         this.props.getTodos();
+
     }
 
 

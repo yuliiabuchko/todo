@@ -8,7 +8,7 @@ from .serializers import *
 
 
 class TaskViewSet(viewsets.ModelViewSet):
-    serializer_class = TaskSimpleSerializer
+    serializer_class = TaskSerializer
     permission_classes = [permissions.IsAuthenticated, ]
     authentication_classes = [auth.TokenAuthentication, ]
 
