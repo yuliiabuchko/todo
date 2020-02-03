@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TodoCreate from './TodoCreate';
 import TodoList from './TodoList';
 
-class Dashboard extends Component {
+class TodoDashboard extends Component {
   render() {
     return (
       <div className='ui container'>
@@ -13,4 +13,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default TodoDashboard;

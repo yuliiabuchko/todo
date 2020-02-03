@@ -4,9 +4,11 @@ import { Router, Route, Switch } from 'react-router-dom';
 
 import history from '../history';
 import Header from './layout/Header';
-import Dashboard from './todos/Dashboard';
+import TodoDashboard from './todos/TodoDashboard';
 import TodoDelete from './todos/TodoDelete';
 import TodoEdit from './todos/TodoEdit';
+
+import EventDashboard from './events/EventDashboard';
 
 import RegisterForm from './auth/RegisterForm';
 import LoginForm from './auth/LoginForm';
@@ -27,7 +29,8 @@ class App extends Component {
         <Router history={history}>
           <Header />
           <Switch>
-            <PrivateRoute exact path='/' component={Dashboard} />
+            <PrivateRoute exact path='/' component={TodoDashboard} />
+            <PrivateRoute exact path='/events' component={EventDashboard} />
             <Route exact path='/delete/:id' component={TodoDelete} />
             <Route exact path='/edit/:id' component={TodoEdit} />
             <Route exact path='/register' component={RegisterForm} />

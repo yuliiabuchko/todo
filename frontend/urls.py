@@ -4,6 +4,8 @@ from .views import index, TodoDetailView
 
 urlpatterns = [
     path('', index),
+    path('stats', index),
+    path('events', index),
     path('login', index),
     path('register', index),
     path('edit/<int:pk>', TodoDetailView.as_view()),
