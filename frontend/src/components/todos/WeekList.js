@@ -13,31 +13,14 @@ class WeekList extends Component {
     //         loading: false
     //     };
     // }
-    state = {
-        items: Array.from({length: 20}),
-        hasMore: true
-    };
 
-    fetchMoreData = () => {
-        if (this.state.items.length >= 500) {
-            this.setState({hasMore: false});
-            return;
-        }
-        // a fake async api call like which sends
-        // 20 more records in .5 secs
-        setTimeout(() => {
-            this.setState({
-                items: this.state.items.concat(Array.from({length: 20}))
-            });
-        }, 500);
-    };
-
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     // return nextProps.weeks !== this.props.weeks;
-    //     console.log("AAAAAAAAAAAAAAAAAAAAAAAAA", nextProps.weeks[1], this.props.weeks[1])
-    //     return true;
+    // fetchMoreData = () => {
+    //     setTimeout(() => {
+    //         // this.props.getWeek('2020-01-27')
+    //             this.props.items = this.props.weeks
     //
-    // }
+    //     }, 500);
+    // };
 
     componentDidMount() {
         this.props.getWeek();
@@ -95,7 +78,7 @@ class WeekList extends Component {
             return (<td class="right aligned collapsing">
                 <Link
                     to={`/weeks`}
-                    className='ui icon button'
+                    className='ui big icon button'
                     key={task_id + day.getDate()}
                     style={{backgroundColor: 'transparent'}}
                     onClick={() => this.progress(specific)}
@@ -108,7 +91,7 @@ class WeekList extends Component {
                 <td class="right aligned collapsing">
                     <Link
                         to={`/weeks`}
-                        className='ui icon button'
+                        className='ui big icon button'
                         key={task_id + day.getDate()}
                         style={{backgroundColor: 'transparent'}}
                         onClick={() => this.select(day, task_id)}
@@ -138,10 +121,7 @@ class WeekList extends Component {
     }
 
     renderStatusesButtons(statuses, task_id, monday) {
-        // console.log("statusssss", statuses)
-        // let monday = '2020-01-20';
         let sunday = this.getSunday(monday);
-        // console.log("sunday", sunday, monday)
         let days = this.getDaysArray(new Date(monday), new Date(sunday));
         return (
             days.map(day => (
@@ -154,27 +134,17 @@ class WeekList extends Component {
         let monday = week.monday;
         let res = [];
         res.push(<h4>Week form {monday}</h4>)
-        // res.push(week.tasks.map(task => (
-        //     <tr key={task.id}>
-        //         {this.renderStatusesButtons(task.statuses, task.id, monday)}
-        //         <td>
-        //             {task.task}
-        //
-        //         </td>
-        //     </tr>
-        // )))
-
         res.push(
             <table className="ui small table">
                 <thead>
                 <tr>
-                    <th class="center aligned">M</th>
-                    <th class="center aligned">T</th>
-                    <th class="center aligned">W</th>
-                    <th class="center aligned">T</th>
-                    <th class="center aligned">F</th>
-                    <th class="center aligned">S</th>
-                    <th class="center aligned">S</th>
+                    <th className="center aligned">M</th>
+                    <th className="center aligned">T</th>
+                    <th className="center aligned">W</th>
+                    <th className="center aligned">T</th>
+                    <th className="center aligned">F</th>
+                    <th className="center aligned">S</th>
+                    <th className="center aligned">S</th>
                     <th>Task</th>
                 </tr>
                 </thead>
@@ -189,42 +159,25 @@ class WeekList extends Component {
                     </tr>))}
                 </tbody>
             </table>
-        )
-
+        );
         return res
     }
 
     renderWeeks() {
         return (
-            // <table className="ui celled striped table">
-            //     <thead>
-            //     <tr>
-            //         <th colSpan="8">
-            //             Git Repository
-            //         </th>
-            //     </tr>
-            //     </thead>
-            //     <tbody>
-                this.props.weeks.map(week => this.weekPart(week))
-                // </tbody>
-            // </table>
+            this.props.weeks.map(week => this.weekPart(week))
         )
     }
 
 
     render() {
         return (
-            // <div className='ui relaxed divided list' style={{marginTop: '2rem'}}>
-
             this.renderWeeks()
-
         )
-
     }
 }
 
 const mapStateToProps = state => ({
-    loading: false,
     weeks: Object.values(state.todos)
 });
 
