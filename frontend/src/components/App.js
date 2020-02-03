@@ -8,6 +8,8 @@ import TodoDashboard from './todos/TodoDashboard';
 import TodoDelete from './todos/TodoDelete';
 import TodoEdit from './todos/TodoEdit';
 
+import EventDelete from './events/EventDelete';
+import EventEdit from './events/EventEdit';
 import EventDashboard from './events/EventDashboard';
 
 import RegisterForm from './auth/RegisterForm';
@@ -31,8 +33,10 @@ class App extends Component {
           <Switch>
             <PrivateRoute exact path='/' component={TodoDashboard} />
             <PrivateRoute exact path='/events' component={EventDashboard} />
-            <Route exact path='/delete/:id' component={TodoDelete} />
-            <Route exact path='/edit/:id' component={TodoEdit} />
+            <Route exact path='/todo/delete/:id' component={TodoDelete} />
+            <Route exact path='/todo/edit/:id' component={TodoEdit} />
+            <Route exact path='/event/delete/:id' component={EventDelete} />
+            <Route exact path='/event/edit/:id' component={EventEdit} />
             <Route exact path='/register' component={RegisterForm} />
             <Route exact path='/login' component={LoginForm} />
           </Switch>

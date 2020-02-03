@@ -73,7 +73,8 @@ class Event(models.Model):
     owner = models.ForeignKey(
         User, related_name="events", on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255 * 10)
+    #description
+    desc = models.CharField(max_length=255 * 10)
     date = models.DateField(
         auto_now=False, auto_now_add=False, default=date.today
     )

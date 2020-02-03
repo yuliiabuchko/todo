@@ -2,27 +2,27 @@ import axios from 'axios';
 import { reset } from 'redux-form';
 import history from '../history';
 import { tokenConfig } from './auth';
-import { GET_TODOS, GET_TODO, ADD_TODO, DELETE_TODO, EDIT_TODO } from './types';
+import { GET_EVENTS, GET_EVENT, ADD_EVENT, DELETE_EVENT, EDIT_EVENT } from './types';
 
-// GET TODOS
+// GET EVENTS
 export const getEvents = () => async (dispatch, getState) => {
   const res = await axios.get('/api/events/', tokenConfig(getState));
   dispatch({
-    type: GET_TODOS,
+    type: GET_EVENTS,
     payload: res.data
   });
 };
 
-// GET TODO
+// GET EVENT
 export const getEvent = id => async (dispatch, getState) => {
   const res = await axios.get(`/api/events/${id}/`, tokenConfig(getState));
   dispatch({
-    type: GET_TODO,
+    type: GET_EVENT,
     payload: res.data
   });
 };
 
-// ADD TODO
+// ADD EVENT
 export const addEvent = formValues => async (dispatch, getState) => {
   const res = await axios.post(
     '/api/events/',
@@ -30,23 +30,23 @@ export const addEvent = formValues => async (dispatch, getState) => {
     tokenConfig(getState)
   );
   dispatch({
-    type: ADD_TODO,
+    type: ADD_EVENT,
     payload: res.data
   });
   dispatch(reset('eventForm'));
 };
 
-// DELETE TODO
+// DELETE EVENT
 export const deleteEvent = id => async (dispatch, getState) => {
   await axios.delete(`/api/events/${id}/`, tokenConfig(getState));
   dispatch({
-    type: DELETE_TODO,
+    type: DELETE_EVENT,
     payload: id
   });
-  history.push('/');
+  history.push('/events')
 };
 
-// EDIT TODO
+// EDIT EVENT
 export const editEvent = (id, formValues) => async (dispatch, getState) => {
   const res = await axios.patch(
     `/api/events/${id}/`,
@@ -54,8 +54,8 @@ export const editEvent = (id, formValues) => async (dispatch, getState) => {
     tokenConfig(getState)
   );
   dispatch({
-    type: EDIT_TODO,
+    type: EDIT_EVENT,
     payload: res.data
   });
-  history.push('/');
+  history.push('/events')
 };
