@@ -7,10 +7,7 @@ class Task(models.Model):
     task = models.CharField(max_length=255)
     owner = models.ForeignKey(
         User, related_name="todos", on_delete=models.CASCADE, null=True)
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-    # TODO when change to DateField error in frontend occurs
-    # created_at = models.DateField(auto_now=False, auto_now_add=False, default=datetime.date.today)
-    start_day = models.DateField(auto_now_add=False, auto_now=False, null=True)
+    start_day = models.DateField(default=date.today, auto_now_add=False, auto_now=False, null=True)
 
     def __str__(self):
         return self.task
@@ -73,7 +70,8 @@ class Event(models.Model):
     owner = models.ForeignKey(
         User, related_name="events", on_delete=models.CASCADE, null=True)
     name = models.CharField(max_length=255)
-    description = models.CharField(max_length=255 * 10)
+    #description
+    desc = models.CharField(max_length=255 * 10)
     date = models.DateField(
         auto_now=False, auto_now_add=False, default=date.today
     )

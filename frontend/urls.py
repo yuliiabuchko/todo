@@ -1,9 +1,11 @@
 from django.urls import path
 
-from .views import index, TodoDetailView, WeekDetailView
+from .views import index, TodoDetailView
 
 urlpatterns = [
     path('', index),
+    path('stats', index),
+    path('events', index),
     path('weeks', index),
     path('login', index),
     path('register', index),

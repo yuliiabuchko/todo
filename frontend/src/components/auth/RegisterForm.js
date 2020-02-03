@@ -3,20 +3,9 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { register } from '../../actions/auth';
+import { textField } from '../forms/TextField';
 
 class RegisterForm extends Component {
-  renderField = ({ input, label, type, meta: { touched, error } }) => {
-    return (
-      <div className={`field ${touched && error ? 'error' : ''}`}>
-        <label>{label}</label>
-        <input {...input} type={type} />
-        {touched && error && (
-          <span className='ui pointing red basic label'>{error}</span>
-        )}
-      </div>
-    );
-  };
-
   onSubmit = formValues => {
     this.props.register(formValues);
   };
@@ -35,28 +24,28 @@ class RegisterForm extends Component {
             <Field
               name='username'
               type='text'
-              component={this.renderField}
+              component={textField}
               label='Username'
               validate={[required, minLength3, maxLength15]}
             />
             <Field
               name='email'
               type='email'
-              component={this.renderField}
+              component={textField}
               label='Email'
               validate={required}
             />
             <Field
               name='password'
               type='password'
-              component={this.renderField}
+              component={textField}
               label='Password'
               validate={required}
             />
             <Field
               name='password2'
               type='password'
-              component={this.renderField}
+              component={textField}
               label='Confirm Password'
               validate={[required, passwordsMatch]}
             />

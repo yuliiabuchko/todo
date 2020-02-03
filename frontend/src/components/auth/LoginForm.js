@@ -3,29 +3,9 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import { login } from '../../actions/auth';
+import { textField, hiddenField } from '../forms/TextField';
 
 class LoginForm extends Component {
-  renderField = ({ input, label, type, meta: { touched, error } }) => {
-    return (
-      <div className={`field ${touched && error ? 'error' : ''}`}>
-        <label>{label}</label>
-        <input {...input} type={type} />
-        {touched && error && (
-          <span className='ui pointing red basic label'>{error}</span>
-        )}
-      </div>
-    );
-  };
-
-  hiddenField = ({ type, meta: { error } }) => {
-    return (
-      <div className='field'>
-        <input type={type} />
-        {error && <div className='ui red message'>{error}</div>}
-      </div>
-    );
-  };
-
   onSubmit = formValues => {
     this.props.login(formValues);
   };
@@ -44,19 +24,19 @@ class LoginForm extends Component {
             <Field
               name='username'
               type='text'
-              component={this.renderField}
+              component={textField}
               label='Username'
             />
             <Field
               name='password'
               type='password'
-              component={this.renderField}
+              component={textField}
               label='Password'
             />
             <Field
               name='non_field_errors'
               type='hidden'
-              component={this.hiddenField}
+              component={hiddenField}
             />
             <button className='ui primary button'>Login</button>
           </form>

@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getTodos, deleteTodo } from '../../actions/todos';
+import { getEvents, deleteEvent } from '../../actions/events';
 
-class TodoList extends Component {
+class EventList extends Component {
   componentDidMount() {
-    this.props.getTodos();
+    this.props.getEvents();
   }
 
   render() {
     return (
       <div className='ui relaxed divided list' style={{ marginTop: '2rem' }}>
-        {this.props.todos.map(todo => (
-          <div className='item' key={todo.id}>
+        {this.props.events.map(eve => (
+          <div className='item' key={eve.id}>
             <div className='right floated content'>
               <Link
-                to={`/todo/delete/${todo.id}`}
+                to={`/event/delete/${eve.id}`}
                 className='small ui negative basic button'
               >
                 Delete
@@ -23,10 +23,11 @@ class TodoList extends Component {
             </div>
             <i className='large calendar outline middle aligned icon' />
             <div className='content'>
-              <Link to={`/todo/edit/${todo.id}`} className='header'>
-                {todo.task}
+              <Link to={`/event/edit/${eve.id}`} className='header'>
+                {eve.name}
               </Link>
-              <div className='description'>{todo.is_done == "True" ? "Done" : "To do"}</div>
+              <div className='description'>{eve.desc}</div>
+              <div className='description'>{eve.date}</div>
             </div>
           </div>
         ))}
@@ -36,10 +37,10 @@ class TodoList extends Component {
 }
 
 const mapStateToProps = state => ({
-  todos: Object.values(state.todos)
+  events: Object.values(state.events)
 });
 
 export default connect(
   mapStateToProps,
-  { getTodos, deleteTodo }
-)(TodoList);
+  { getEvents, deleteEvent }
+)(EventList);

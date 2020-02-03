@@ -16,8 +16,8 @@ class Header extends Component {
         </DropdownButton>
         <DropdownButton variant="secondary" id="planner-dropdown-button" title="Planner">
           <Dropdown.Item href="/weeks">Weeks</Dropdown.Item>
-          <Dropdown.Item href="#tasks">Tasks</Dropdown.Item>
-          <Dropdown.Item href="#events">Events</Dropdown.Item>
+          <Dropdown.Item href="/">Tasks</Dropdown.Item>
+          <Dropdown.Item href="/events">Events</Dropdown.Item>
         </DropdownButton>
       </>
     );

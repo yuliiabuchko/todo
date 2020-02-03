@@ -31,7 +31,7 @@ class TaskSerializer(serializers.ModelSerializer):
 
 
 class TaskStatusSerializer:
-    statuses = StatusSerializer(many=True)
+    statuses = StatusSerializer(many=True, read_only=True)
 
     class Meta:
         model = Task
@@ -51,7 +51,7 @@ class EventSerializer(serializers.ModelSerializer):
 
 
 class StatisticSerializer(serializers.ModelSerializer):
-    entries = EntrySerializer(many=True)
+    entries = EntrySerializer(many=True, read_only=True)
 
     class Meta:
         model = Statistic
@@ -59,7 +59,7 @@ class StatisticSerializer(serializers.ModelSerializer):
 
 
 class TaskInWeekSerializer(serializers.ModelSerializer):
-    statuses = serializers.SerializerMethodField()
+    statuses = serializers.SerializerMethodField(read_only=True)
 
     def get_statuses(self, task):
         qs = Status.objects.filter(task=task, day__gte=self.context['start'], day__lte=self.context['end'])
@@ -71,7 +71,7 @@ class TaskInWeekSerializer(serializers.ModelSerializer):
 
 
 class StatisticInWeekSerializer(serializers.ModelSerializer):
-    entries = serializers.SerializerMethodField()
+    entries = serializers.SerializerMethodField(read_only=True)
 
     def get_entries(self, statistic):
         qs = Entry.objects.filter(statistic=statistic, date__gte=self.context['start'], date__lte=self.context['end'])
@@ -83,9 +83,9 @@ class StatisticInWeekSerializer(serializers.ModelSerializer):
 
 
 class WeekSerializer(serializers.ModelSerializer):
-    events = serializers.SerializerMethodField()
-    tasks = serializers.SerializerMethodField()
-    statistics = serializers.SerializerMethodField()
+    events = serializers.SerializerMethodField(read_only=True)
+    tasks = serializers.SerializerMethodField(read_only=True)
+    statistics = serializers.SerializerMethodField(read_only=True)
 
     def saturday(monday):
         return monday + timedelta(days=6)
