@@ -2,19 +2,14 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {getTodos, deleteTodo} from '../../actions/todos';
-import axios from "axios";
-import {tokenConfig} from "../../actions/auth";
-import {DELETE_TODO} from "../../actions/types";
-import history from "../../history";
 
 class TodoList extends Component {
     componentDidMount() {
         this.props.getTodos();
-
     }
 
-
     renderWeek() {
+        console.log("rendering whole week")
         return (
             this.props.todos.map(todo => (
                 <div className='item' key={todo.id}>

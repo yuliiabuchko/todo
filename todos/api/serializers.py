@@ -21,9 +21,9 @@ class StatusSerializer(serializers.ModelSerializer):
 
 
 class TaskSerializer(serializers.ModelSerializer):
-    statuses = StatusSerializer(many=True)
+    statuses = StatusSerializer(many=True, read_only=True)
 
-    is_done = FunctionField()
+    is_done = FunctionField(read_only=True)
 
     class Meta:
         model = Task

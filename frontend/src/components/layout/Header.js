@@ -15,7 +15,7 @@ class Header extends Component {
           <Dropdown.Item as="button"><a onClick={this.props.logout}>Logout</a></Dropdown.Item>
         </DropdownButton>
         <DropdownButton variant="secondary" id="planner-dropdown-button" title="Planner">
-          <Dropdown.Item href="#weeks">Weeks</Dropdown.Item>
+          <Dropdown.Item href="/weeks">Weeks</Dropdown.Item>
           <Dropdown.Item href="#tasks">Tasks</Dropdown.Item>
           <Dropdown.Item href="#events">Events</Dropdown.Item>
         </DropdownButton>

@@ -28,12 +28,13 @@ class App extends Component {
         <Router history={history}>
           <Header />
           <Switch>
-            <PrivateRoute exact path='/' component={Dashboard} />
             <Route exact path='/weeks' component={WeekList} />
             <Route exact path='/delete/:id' component={TodoDelete} />
             <Route exact path='/edit/:id' component={TodoEdit} />
             <Route exact path='/register' component={RegisterForm} />
             <Route exact path='/login' component={LoginForm} />
+                        <PrivateRoute exact path='/' component={Dashboard} />
+
           </Switch>
         </Router>
       </Provider>
