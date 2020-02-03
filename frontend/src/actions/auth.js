@@ -93,7 +93,6 @@ export const logout = () => async (dispatch, getState) => {
 export const tokenConfig = getState => {
   // Get token
   const token = getState().auth.token;
-  console.log("TOKEN", token);
   // Headers
   const config = {
     headers: {

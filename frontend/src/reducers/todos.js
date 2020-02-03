@@ -15,8 +15,6 @@ export default (state = {}, action) => {
         ..._.mapKeys(action.payload, 'id')
       };
       case ADD_STATUS:
-        console.log("payload", action.payload);
-        console.log("before", state);
         state.map(stat => {
         stat.tasks.map(task =>{
           if(task.id === action.payload.task){
@@ -24,7 +22,6 @@ export default (state = {}, action) => {
           }
         })
       });
-        console.log("after", state);
     return state;
     case GET_WEEK:
       let arr = [action.payload];

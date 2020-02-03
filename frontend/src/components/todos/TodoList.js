@@ -9,7 +9,6 @@ class TodoList extends Component {
     }
 
     renderWeek() {
-        console.log("rendering whole week")
         return (
             this.props.todos.map(todo => (
                 <div className='item' key={todo.id}>
