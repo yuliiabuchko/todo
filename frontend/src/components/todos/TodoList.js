@@ -26,7 +26,7 @@ class TodoList extends Component {
               <Link to={`/todo/edit/${todo.id}`} className='header'>
                 {todo.task}
               </Link>
-              <div className='description'>{todo.created_at}</div>
+              <div className='description'>{todo.is_done == "True" ? "Done" : "To do"}</div>
             </div>
           </div>
         ))}

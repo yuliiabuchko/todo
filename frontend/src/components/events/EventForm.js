@@ -13,6 +13,8 @@ class EventForm extends Component {
   };
 
   render() {
+    var date = new Date();
+    date = date.toISOString().substring(0,10);
     const btnText = `${this.props.initialValues ? 'Update' : 'Add'}`;
     return (
       <div className='ui segment'>
@@ -23,7 +25,7 @@ class EventForm extends Component {
           <Field name='name' component={textField} validate={required} label='Name of event' />
           <Field name='desc' component={textField} validate={required} label='Description' />
         
-          <FieldDatePicker name="day" placeholder="Date" />
+          <FieldDatePicker name="day" placeholder={date} />
           <button className='ui primary button'>{btnText}</button>
         
         </form>
