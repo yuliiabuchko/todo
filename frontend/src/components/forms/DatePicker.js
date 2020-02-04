@@ -65,15 +65,9 @@ export const FieldDatePicker = props => {
       name={props.name}
       component={DatePicker}
       props={props}
-      validate={requiredDate}
     />
   );
 };
 
-const requiredDate = value => {
-    console.log("here")
-    console.log(value);
-    return (value ? undefined : 'Required');
-}
 export default DatePicker;
 
