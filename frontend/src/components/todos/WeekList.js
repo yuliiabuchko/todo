@@ -7,7 +7,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 
 class WeekList extends Component {
     constructor(props) {
-        console.log("construktor", props)
         super(props);
         this.state = {
             // items: props.weeks,
@@ -23,7 +22,6 @@ class WeekList extends Component {
                 earliest = week.monday
             }
         })
-        console.log("earliest", earliest)
         return earliest;
     }
 
@@ -173,50 +171,93 @@ class WeekList extends Component {
         )
     }
 
-    renderWeekWithNoTasks(monday){
+    renderWeekWithNoTasks(monday) {
         let res = [];
-        res.push(<h4>Week form {monday}</h4>)
-        res.push(<div className="ui visible message">
+        res.push(<div className="ui center aligned header"><h3>Week from {monday}</h3></div>)
+        res.push(<div className="ui container"><div className="ui visible message">
             <p>No tasks for this week</p>
-        </div>)
+        </div></div>);
         return res;
     }
 
-    weekPart(week) {
-        let monday = week.monday;
-        console.log("weeek", week.tasks)
-        if(week.tasks.length === 0){
-            return this.renderWeekWithNoTasks(monday);
-        }
+    renderWeekWithNoEvents() {
         let res = [];
-        res.push(<h4>Week form {monday}</h4>)
-        res.push(
-            <table className="ui small table">
-                <thead>
-                <tr>
-                    <th className="center aligned">M</th>
-                    <th className="center aligned">T</th>
-                    <th className="center aligned">W</th>
-                    <th className="center aligned">T</th>
-                    <th className="center aligned">F</th>
-                    <th className="center aligned">S</th>
-                    <th className="center aligned">S</th>
-                    <th>Task</th>
-                </tr>
-                </thead>
-                <tbody>
-                {week.tasks.map(task => (
-                    <tr key={task.id}>
-                        {this.renderStatusesButtons(task.statuses, task.id, monday)}
-                        <td>
-                            {task.task}
+        res.push(<div className="ui container"><div className="ui visible message">
+            <p>No events for this week</p>
+        </div></div>)
+        return res;
+    }
 
-                        </td>
-                    </tr>))}
-                </tbody>
-            </table>
+
+    renderTaskTable(week) {
+        if (week.tasks.length === 0) {
+            return this.renderWeekWithNoTasks(week.monday);
+        }
+
+        let res = [];
+        res.push(<div className="ui center aligned header"><h3>Week from {week.monday}</h3></div>)
+        res.push(
+            <div className="ui container">
+                <table className="ui small table">
+                    <thead>
+                    <tr>
+                        <th className="center aligned">M</th>
+                        <th className="center aligned">T</th>
+                        <th className="center aligned">W</th>
+                        <th className="center aligned">T</th>
+                        <th className="center aligned">F</th>
+                        <th className="center aligned">S</th>
+                        <th className="center aligned">S</th>
+                        <th>Task</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {week.tasks.map(task => (
+                        <tr key={task.id}>
+                            {this.renderStatusesButtons(task.statuses, task.id, week.monday)}
+                            <td style={{verticalAlign: "middle"}}>
+                                {task.task}
+                            </td>
+                        </tr>))}
+                    </tbody>
+                </table>
+            </div>
         );
         return res
+    }
+
+
+    renderEventsList(week) {
+        if (week.events.length === 0) {
+            return this.renderWeekWithNoEvents(week.monday);
+        }
+        // return <div></div>
+        return (
+            <div className="ui container">
+                <div className='ui relaxed divided list' style={{marginTop: '2rem'}}>
+                    {week.events.map(eve => (
+                        <div className='item' key={eve.id}>
+                            <i className='large calendar outline middle aligned icon'/>
+                            <div className='content'>
+                                <Link to={`/event/edit/${eve.id}`} className='header'>
+                                    {eve.name}
+                                </Link>
+                                <div className='description'>{eve.desc}</div>
+                                <div className='description'>{eve.date}</div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        );
+    }
+
+    weekPart(week) {
+        let res = []
+        res.push(this.renderTaskTable(week));
+        res.push(this.renderEventsList(week));
+        return res;
+
     }
 
     render() {
@@ -226,7 +267,7 @@ class WeekList extends Component {
                     dataLength={this.props.weeks.length} //This is important field to render the next data
                     next={this.fetchMoreData}
                     hasMore={this.state.hasMore}
-                    loader={<h4>Loading...</h4>}
+                    loader={<div className="ui center aligned header"><h4>Loading...</h4></div>}
                     endMessage={
                         <p style={{textAlign: "center"}}>
                             <b>Yay! You have seen it all</b>
