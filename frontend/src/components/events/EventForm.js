@@ -25,7 +25,7 @@ class EventForm extends Component {
           <Field name='name' component={textField} validate={required} label='Name of event' />
           <Field name='desc' component={textField} validate={required} label='Description' />
         
-          <FieldDatePicker name="day" placeholder={date} />
+          <FieldDatePicker name="data" placeholder={date} />
           <button className='ui primary button'>{btnText}</button>
         
         </form>
