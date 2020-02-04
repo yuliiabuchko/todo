@@ -9,7 +9,6 @@ class WeekList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // items: props.weeks,
             hasMore: true,
         };
     }
@@ -17,7 +16,6 @@ class WeekList extends Component {
     getEarliestMondayFromProps() {
         let earliest = this.getMonday(new Date())
         this.props.weeks.map((week) => {
-            // console.log("ww", week)
             if (week.monday <= earliest) {
                 earliest = week.monday
             }
@@ -65,10 +63,6 @@ class WeekList extends Component {
 
     componentDidMount() {
         this.props.getWeek();
-        // this.props.getWeek('2020-01-27');
-        // this.props.getWeek('2020-01-20');
-        // this.props.getWeek('2020-01-13');
-        // this.props.getWeek('2020-01-06');
     }
 
     getDaysArray = function (s, e) {
@@ -116,7 +110,7 @@ class WeekList extends Component {
         );
         let has = (res.indexOf(true)) !== -1;
         if (has) {
-            return (<td className="right aligned collapsing">
+            return (<td key={"td_day" + day + "task" + task_id} className="right aligned collapsing">
                 <Link
                     to={`/weeks`}
                     className='ui big icon button'
@@ -155,7 +149,6 @@ class WeekList extends Component {
         d = new Date(d);
         var day = d.getDay(),
             diff = d.getDate() + (7 - day) % 7; // adjust when day is sunday
-        // console.log(d, diff)
         var r = new Date(d.setDate(diff));
         return r.getFullYear() + "-" + this.appendLeadingZeroes(r.getMonth() + 1) + "-" + this.appendLeadingZeroes(r.getDate())
 
@@ -173,16 +166,16 @@ class WeekList extends Component {
 
     renderWeekWithNoTasks(monday) {
         let res = [];
-        res.push(<div className="ui center aligned header"><h3>Week from {monday}</h3></div>)
-        res.push(<div className="ui container"><div className="ui visible message">
+        res.push(<div key={monday + "ui task center div header"} className="ui center aligned header"><h3>Week from {monday}</h3></div>)
+        res.push(<div key={monday + "ui task container"} className="ui container"><div className="ui visible message">
             <p>No tasks for this week</p>
         </div></div>);
         return res;
     }
 
-    renderWeekWithNoEvents() {
+    renderWeekWithNoEvents(monday) {
         let res = [];
-        res.push(<div className="ui container"><div className="ui visible message">
+        res.push(<div key={monday + "ui event container"} className="ui container"><div className="ui visible message">
             <p>No events for this week</p>
         </div></div>)
         return res;
@@ -195,9 +188,9 @@ class WeekList extends Component {
         }
 
         let res = [];
-        res.push(<div className="ui center aligned header"><h3>Week from {week.monday}</h3></div>)
+        res.push(<div key={week + "ui task center div header"} className="ui center aligned header"><h3>Week from {week.monday}</h3></div>)
         res.push(
-            <div className="ui container">
+            <div key={week + "ui task container"} className="ui container">
                 <table className="ui small table">
                     <thead>
                     <tr>
@@ -231,9 +224,8 @@ class WeekList extends Component {
         if (week.events.length === 0) {
             return this.renderWeekWithNoEvents(week.monday);
         }
-        // return <div></div>
         return (
-            <div className="ui container">
+            <div key={Math.random()} className="ui container">
                 <div className='ui relaxed divided list' style={{marginTop: '2rem'}}>
                     {week.events.map(eve => (
                         <div className='item' key={eve.id}>
