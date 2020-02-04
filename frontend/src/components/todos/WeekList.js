@@ -9,19 +9,17 @@ class WeekList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            // items: props.weeks,
             hasMore: true,
         };
     }
 
     getEarliestMondayFromProps() {
-        let earliest = this.getMonday(new Date())
+        let earliest = this.getMonday(new Date());
         this.props.weeks.map((week) => {
-            // console.log("ww", week)
             if (week.monday <= earliest) {
                 earliest = week.monday
             }
-        })
+        });
         return earliest;
     }
 
@@ -31,14 +29,13 @@ class WeekList extends Component {
             this.setState({hasMore: false})
             return;
         }
-
-
+        
         setTimeout(() => {
             this.props.getWeek(this.prevMonday(this.getEarliestMondayFromProps()));
         }, 500);
     };
 
-    appendLeadingZeroes(n) {
+    appendZeroes(n) {
         if (n <= 9) {
             return "0" + n;
         }
@@ -47,32 +44,28 @@ class WeekList extends Component {
 
     getMonday(d) {
         d = new Date(d);
-        var day = d.getDay(),
-            diff = d.getDate() - day + (day == 0 ? -6 : 1); // adjust when day is sunday
+        let day = d.getDay(),
+            diff = d.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
         let date = new Date(d.setDate(diff));
-        return date.getFullYear().toString() + "-" + this.appendLeadingZeroes(date.getMonth() + 1) + "-" + this.appendLeadingZeroes(date.getDate())
-
+        return date.getFullYear().toString() + "-" + this.appendZeroes(date.getMonth() + 1) + "-" + this.appendZeroes(date.getDate());
     }
 
     prevMonday(thisMonday) {
         if (thisMonday === undefined) {
             thisMonday = new Date();
         }
-        var date = new Date(thisMonday);
+        let date = new Date(thisMonday);
         date.setDate(date.getDate() - 7 + (1 - date.getDay()) % 7);
-        return date.getFullYear().toString() + "-" + this.appendLeadingZeroes(date.getMonth() + 1) + "-" + this.appendLeadingZeroes(date.getDate())
+        return date.getFullYear().toString() + "-" + this.appendZeroes(date.getMonth() + 1) + "-" + this.appendZeroes(date.getDate())
     }
 
     componentDidMount() {
         this.props.getWeek();
-        // this.props.getWeek('2020-01-27');
-        // this.props.getWeek('2020-01-20');
-        // this.props.getWeek('2020-01-13');
-        // this.props.getWeek('2020-01-06');
     }
 
     getDaysArray = function (s, e) {
-        for (var a = [], d = s; d <= e; d.setDate(d.getDate() + 1)) {
+        let a = [];
+        for (let d = s; d <= e; d.setDate(d.getDate() + 1)) {
             a.push(new Date(d));
         }
         return a;
@@ -83,7 +76,7 @@ class WeekList extends Component {
     }
 
     select(day, task) {
-        let day_formatted = day.getFullYear() + "-" + this.appendLeadingZeroes(day.getMonth() + 1) + "-" + this.appendLeadingZeroes(day.getDate())
+        let day_formatted = day.getFullYear() + "-" + this.appendZeroes(day.getMonth() + 1) + "-" + this.appendZeroes(day.getDate())
         this.props.createTodoStatus(day_formatted, task)
     }
 
@@ -120,7 +113,7 @@ class WeekList extends Component {
                 <Link
                     to={`/weeks`}
                     className='ui big icon button'
-                    key={task_id + day.getDate()}
+                    key={task_id + day.getDate() + specific.result}
                     style={{backgroundColor: 'transparent'}}
                     onClick={() => this.progress(specific)}
                 >
@@ -144,20 +137,13 @@ class WeekList extends Component {
         }
     }
 
-    appendLeadingZeroes(n) {
-        if (n <= 9) {
-            return "0" + n;
-        }
-        return n
-    }
-
     getSunday(d) {
         d = new Date(d);
         var day = d.getDay(),
             diff = d.getDate() + (7 - day) % 7; // adjust when day is sunday
         // console.log(d, diff)
         var r = new Date(d.setDate(diff));
-        return r.getFullYear() + "-" + this.appendLeadingZeroes(r.getMonth() + 1) + "-" + this.appendLeadingZeroes(r.getDate())
+        return r.getFullYear() + "-" + this.appendZeroes(r.getMonth() + 1) + "-" + this.appendZeroes(r.getDate())
 
     }
 
@@ -173,7 +159,7 @@ class WeekList extends Component {
 
     renderWeekWithNoTasks(monday) {
         let res = [];
-        res.push(<div className="ui center aligned header"><h3>Week from {monday}</h3></div>)
+        res.push(<div className="ui center aligned header"><h3 style={{marginTop: 5}}>Week from {monday}</h3></div>);
         res.push(<div className="ui container" style={{marginTop: 5}}>
             <div className="ui visible message">
                 <p>No tasks for this week</p>
@@ -188,7 +174,7 @@ class WeekList extends Component {
             <div className="ui visible message">
                 <p>No events for this week</p>
             </div>
-        </div>)
+        </div>);
         return res;
     }
 
@@ -199,7 +185,7 @@ class WeekList extends Component {
         }
 
         let res = [];
-        res.push(<div className="ui center aligned header"><h3>Week from {week.monday}</h3></div>)
+        res.push(<div className="ui center aligned header"><h3 style={{marginTop: 10}}>Week from {week.monday}</h3></div>);
         res.push(
             <div className="ui container">
                 <table className="ui small table">
@@ -260,10 +246,10 @@ class WeekList extends Component {
         return (
             <div className="ui container" style={{paddingBottom: 10, paddingTop: 10}}>
                 <Link to='/'>
-                    <button className="ui right floated button" >Add task</button>
+                    <button className="ui right floated small basic button" >Add task</button>
                 </Link>
                 <Link to='/events'>
-                <button className="ui left floated button">Add event</button>
+                <button className="ui left floated small basic button">Add event</button>
                 </Link>
             </div>
 
@@ -271,10 +257,10 @@ class WeekList extends Component {
     }
 
     weekPart(week) {
-        let res = []
+        let res = [];
         res.push(this.renderTaskTable(week));
         res.push(this.renderEventsList(week));
-        res.push(this.renderAddingButtons())
+        res.push(this.renderAddingButtons());
         return res;
 
     }
@@ -302,7 +288,6 @@ class WeekList extends Component {
 
 const mapStateToProps = state => ({
     weeks: Object.values(state.todos),
-    prev: state.prevWeek
 });
 
 export default connect(
