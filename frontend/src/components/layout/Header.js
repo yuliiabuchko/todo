@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
 import Dropdown from 'react-bootstrap/Dropdown'
+import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
+import Brand from 'react-bootstrap'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 
 class Header extends Component {
@@ -11,34 +13,35 @@ class Header extends Component {
 
     const userLinks = (
       <>
-        <DropdownButton variant="secondary" id="user-dropdown-button" title={user ? user.username : 'user'}>
-          <Dropdown.Item as="button"><a onClick={this.props.logout}>Logout</a></Dropdown.Item>
-        </DropdownButton>
-        <DropdownButton variant="secondary" id="planner-dropdown-button" title="Planner">
-          <Dropdown.Item href="/weeks">Weeks</Dropdown.Item>
-          <Dropdown.Item href="/">Tasks</Dropdown.Item>
-          <Dropdown.Item href="/events">Events</Dropdown.Item>
-        </DropdownButton>
+              <NavDropdown title="Planner" id="basic-nav-dropdown">
+                <NavDropdown.Item href="/">Tasks</NavDropdown.Item>
+                <NavDropdown.Item href="/weeks">Weeks</NavDropdown.Item>
+                <NavDropdown.Item href="/events">Events</NavDropdown.Item>
+              </NavDropdown>
+              <NavDropdown title={user ? user.username : 'user'} id="basic-nav-dropdown">
+                <NavDropdown.Item onClick={this.props.logout}>Logout</NavDropdown.Item>
+              </NavDropdown>
       </>
     );
 
     const guestLinks = (
-      <Dropdown>
-        <Dropdown.Toggle variant="secondary" id="dropdown-secondary">
-          Menu
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu>
-          <Dropdown.Item href="/register">Register</Dropdown.Item>
-          <Dropdown.Item href="/login">Login</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+              <NavDropdown title="Menu" id="basic-nav-dropdown">
+                <NavDropdown.Item href="/login">Login</NavDropdown.Item>
+                <NavDropdown.Item href="/register">Register</NavDropdown.Item>
+              </NavDropdown>
     );
-
     return (
-      <div className='ui inverted menu' style={{ borderRadius: '0' }}>
-        {isAuthenticated ? userLinks : guestLinks}
-      </div>
+        <Navbar bg="light" expand="lg">
+          <Navbar.Brand>To Do Planner</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto">
+              <Nav.Link href="/">Home</Nav.Link>
+              <Nav.Link href="https://github.com/yuliiabuchko/todo">Repo</Nav.Link>
+              {isAuthenticated ? userLinks : guestLinks}
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
     );
   }
 }
