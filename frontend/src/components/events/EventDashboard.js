@@ -11,12 +11,13 @@ class EventDashboard extends Component {
             
               <ParallaxLayer offset={0.6} speed={0.5} style={{ backgroundColor: '#d5fbf4' }} />
               <ParallaxLayer offset={1} speed={0.5} style={{ backgroundColor: '#d5effb' }} />
-              <ParallaxLayer offset={0.4} speed={-0.1}>
-                  <EventList />
-              </ParallaxLayer>
               <ParallaxLayer offset={0} speed={0.2}>
                   <EventCreate />
               </ParallaxLayer>
+              <ParallaxLayer offset={0.7} speed={-0.1}>
+                  <EventList />
+              </ParallaxLayer>
+
             </Parallax>
         );
     }

@@ -11,11 +11,11 @@ class TodoDashboard extends Component {
               <ParallaxLayer offset={0} speed={0} style={{ backgroundColor: '#f9dfd5' }} />
               <ParallaxLayer offset={0.6} speed={0.5} style={{ backgroundColor: '#f9f1d5' }} />
               <ParallaxLayer offset={1} speed={0.5} style={{ backgroundColor: '#eff9d5' }} />
-              <ParallaxLayer offset={0.3} speed={-0.1}>
-                <TodoList />
-              </ParallaxLayer>
               <ParallaxLayer offset={0} speed={0.2}>
                 <TodoCreate />
+              </ParallaxLayer>
+                <ParallaxLayer offset={0.6} speed={-0.1}>
+                <TodoList />
               </ParallaxLayer>
             </Parallax>
     );
