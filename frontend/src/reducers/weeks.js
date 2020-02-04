@@ -6,6 +6,8 @@ import {
 export default (state = {}, action) => {
   switch (action.type) {
       case ADD_STATUS:
+        console.log(state);
+        console.log(action.payload);
         state.map(stat => {
         stat.tasks.map(task =>{
           if(task.id === action.payload.task){

@@ -38,33 +38,30 @@ export const createTodoStatus = (day, task_id) => async (dispatch, getState) => 
     });
 };
 
-
-export const progressTodo = (status_id) => async (dispatch, getState) => {
-    const prev = await axios.get(`/api/statuses/${status_id}/`, tokenConfig(getState));
-
-    switch (prev.data.result) {
+export const progressTodo = (status_id, result) => async (dispatch, getState) => {
+    let next = {"id":status_id};
+    switch (result) {
         case "S":
-            prev.data.result = "H";
+            next.result = "H";
             break;
         case "H":
-            prev.data.result = "D";
+            next.result = "D";
             break;
         case "D":
-            prev.data.result = "M";
+            next.result = "M";
             break;
         case "M":
-            prev.data.result = "C";
+            next.result = "C";
             break;
         case "C":
-            prev.data.result = "S";
+            next.result = "S";
             break;
     }
     const res = await axios.patch(
         `/api/statuses/${status_id}/`,
-        prev.data,
+        {...next},
         tokenConfig(getState)
     );
-    const changed = await axios.get(`/api/statuses/${status_id}/`, tokenConfig(getState));
     dispatch({
         type: PROGRESS_TODO,
         payload: res.data

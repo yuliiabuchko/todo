@@ -73,12 +73,14 @@ class WeekList extends Component {
     };
 
     progress(specific) {
-        this.props.progressTodo(specific.id)
+        this.props.progressTodo(specific.id, specific.result);
+        setTimeout(() => {this.setState({time: Date.now()});}, 100);
     }
 
     select(day, task) {
         let day_formatted = day.getFullYear() + "-" + this.appendLeadingZeroes(day.getMonth() + 1) + "-" + this.appendLeadingZeroes(day.getDate())
         this.props.createTodoStatus(day_formatted, task)
+        setTimeout(() => {this.setState({time: Date.now()});}, 100);
     }
 
     specificButton(result, day) {
