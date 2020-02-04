@@ -35,10 +35,9 @@ class DatePicker extends PureComponent {
       <React.Fragment>
         <SingleDatePicker
           showClearDate={true}
-          showDefaultInputIcon={true}
           displayFormat="YYYY-MM-DD"
           numberOfMonths={1}
-          disabled={disabled}
+          isOutsideRange={() => false}
           placeholder={placeholder}
           date={input.value}
           onDateChange={input.onChange}

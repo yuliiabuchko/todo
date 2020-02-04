@@ -25,6 +25,7 @@ class TodoForm extends Component {
           <Field name='task' component={textField} label='Task' />
           <label>Starting day</label><br/>
           <FieldDatePicker  name="start_day" placeholder={date} />
+          &emsp;
           <button className='ui primary button'>{btnText}</button>
         </form>
       </div>

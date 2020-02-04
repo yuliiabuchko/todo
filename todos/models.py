@@ -21,6 +21,9 @@ class Task(models.Model):
 
     @property
     def last_date(self):
+        if self.is_done:
+            a = [s for s in self.statuses.all() if (s.result == "D" or s.result == "C")]
+            return list(sorted(map((lambda x : x.day), a)))[0]
         if self.statuses.all():
             return self.statuses.latest('day').day
         else:
