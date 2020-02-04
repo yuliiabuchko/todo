@@ -29,6 +29,7 @@ class TodoList extends Component {
                 {todo.task}
               </Link>
               <div className='description'>{todo.is_done == "True" ? "Done" : "To do"}</div>
+              <div className='description'>{todo.start_day}</div>
             </div>
           </div>
         ))}

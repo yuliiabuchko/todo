@@ -38,7 +38,7 @@ class DatePicker extends PureComponent {
           showDefaultInputIcon={true}
           displayFormat="YYYY-MM-DD"
           numberOfMonths={1}
-          disabled={disabled}
+          isOutsideRange={() => false}
           placeholder={placeholder}
           date={input.value}
           onDateChange={input.onChange}

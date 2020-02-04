@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {reset} from 'redux-form';
 import {tokenConfig} from './auth';
-import {GET_TODOS, GET_TODO, ADD_TODO, DELETE_TODO, EDIT_TODO, GET_WEEK, PROGRESS_TODO, ADD_STATUS} from './types';
+import {GET_TODOS, CLEAR_AND_GET_WEEK, GET_TODO, ADD_TODO, DELETE_TODO, EDIT_TODO, GET_WEEK, PROGRESS_TODO, ADD_STATUS} from './types';
 
 function appendLeadingZeroes(n) {
     if (n <= 9) {
@@ -17,10 +17,15 @@ function getMonday(d) {
 }
 
 export const getWeek = (monday = '') => async (dispatch, getState) => {
-    if (monday === '') monday = getMonday(new Date());
+    let type = GET_WEEK;
+    if (monday === '') {
+        monday = getMonday(new Date());
+        type = CLEAR_AND_GET_WEEK;
+    }
     const res = await axios.get('/api/weeks/?monday=' + monday, tokenConfig(getState));
+    
     dispatch({
-        type: GET_WEEK,
+        type: type,
         payload: res.data
     });
 };
