@@ -43,7 +43,7 @@ export const deleteEvent = id => async (dispatch, getState) => {
     type: DELETE_EVENT,
     payload: id
   });
-  history.push('/events')
+  window.location.hash = 'events';
 };
 
 // EDIT EVENT
@@ -57,5 +57,5 @@ export const editEvent = (id, formValues) => async (dispatch, getState) => {
     type: EDIT_EVENT,
     payload: res.data
   });
-  history.push('/events')
+  window.location.hash = 'events';
 };

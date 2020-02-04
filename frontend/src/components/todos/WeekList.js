@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {progressTodo, getWeek, createTodoStatus} from '../../actions/todos';
+import {progressTodo, getWeek, createTodoStatus} from '../../actions/weeks';
 import InfiniteScroll from "react-infinite-scroll-component";
 
 
@@ -81,7 +81,7 @@ class WeekList extends Component {
         this.props.createTodoStatus(day_formatted, task)
     }
 
-    specificButton(result) {
+    specificButton(result, day) {
         switch (result) {
             case "S":
                 return (<i className="star outline icon"/>);
@@ -118,12 +118,12 @@ class WeekList extends Component {
                     style={{backgroundColor: 'transparent'}}
                     onClick={() => this.progress(specific)}
                 >
-                    {this.specificButton(specific.result)}
+                    {this.specificButton(specific.result, day)}
                 </Link>
             </td>)
         } else {
             return (
-                <td className="right aligned collapsing">
+                <td key={"td_day" + day} className="right aligned collapsing">
                     <Link
                         to={`/weeks`}
                         className='ui big icon button'
@@ -131,7 +131,7 @@ class WeekList extends Component {
                         style={{backgroundColor: 'transparent'}}
                         onClick={() => this.select(day, task_id)}
                     >
-                        <i className="square outline icon"/>
+                        <i key={task_id + day.getDate() + "icon"} className="square outline icon"/>
                     </Link>
                 </td>
             )
@@ -274,7 +274,7 @@ class WeekList extends Component {
 }
 
 const mapStateToProps = state => ({
-    weeks: Object.values(state.todos),
+    weeks: Object.values(state.weeks),
     prev: state.prevWeek
 });
 

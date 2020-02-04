@@ -40,7 +40,7 @@ class EventDelete extends Component {
         title='Delete Event'
         content={this.renderContent()}
         actions={this.renderActions()}
-        onDismiss={() => history.push('/events')}
+        onDismiss={() => window.location.hash = "/events"}
       />
     );
   }

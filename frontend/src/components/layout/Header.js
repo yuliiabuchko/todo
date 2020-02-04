@@ -14,9 +14,9 @@ class Header extends Component {
     const userLinks = (
       <>
               <NavDropdown title="Planner" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/">Tasks</NavDropdown.Item>
-                <NavDropdown.Item href="/weeks">Weeks</NavDropdown.Item>
-                <NavDropdown.Item href="/events">Events</NavDropdown.Item>
+                <NavDropdown.Item href="/#/">Tasks</NavDropdown.Item>
+                <NavDropdown.Item href="/#/weeks">Weeks</NavDropdown.Item>
+                <NavDropdown.Item href="/#/events">Events</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title={user ? user.username : 'user'} id="basic-nav-dropdown">
                 <NavDropdown.Item onClick={this.props.logout}>Logout</NavDropdown.Item>

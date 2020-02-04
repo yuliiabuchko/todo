@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 
-import history from '../history';
 import Header from './layout/Header';
 import TodoDashboard from './todos/TodoDashboard';
 import TodoDelete from './todos/TodoDelete';
@@ -29,9 +28,8 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <Router history={history}>
+        <HashRouter>
           <Header />
-          <Switch>
             <PrivateRoute exact path='/' component={TodoDashboard} />
             <PrivateRoute exact path='/events' component={EventDashboard} />
             <Route exact path='/todo/delete/:id' component={TodoDelete} />
@@ -41,8 +39,7 @@ class App extends Component {
             <Route exact path='/register' component={RegisterForm} />
             <Route exact path='/login' component={LoginForm} />
             <Route exact path='/weeks' component={WeekList} />
-          </Switch>
-        </Router>
+        </HashRouter>
       </Provider>
     );
   }

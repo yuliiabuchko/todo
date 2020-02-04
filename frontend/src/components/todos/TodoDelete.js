@@ -40,7 +40,7 @@ class TodoDelete extends Component {
         title='Delete Todo'
         content={this.renderContent()}
         actions={this.renderActions()}
-        onDismiss={() => history.push('/')}
+        onDismiss={() => window.location.hash = ""}
       />
     );
   }

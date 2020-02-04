@@ -3,13 +3,15 @@ import { reducer as formReducer } from 'redux-form';
 import todos from './todos';
 import auth from './auth';
 import events from './events';
+import weeks from './weeks';
 import { LOGOUT_SUCCESS } from '../actions/types';
 
 const appReducer = combineReducers({
   form: formReducer,
   todos,
   auth,
-  events
+  events,
+  weeks
 });
 
 const rootReducer = (state, action) => {
