@@ -99,7 +99,7 @@ class WeekSerializer(serializers.ModelSerializer):
         start = week.monday
         end = WeekSerializer.saturday(week.monday)
 
-        return (start <= task.start_day <= end) or (start <= task.last_date <= end) or (start >= task.start_day and task.last_date >= end)
+        return (end >= task.start_day and not task.is_done) or (start <= task.start_day <= end) or (start <= task.last_date <= end) or (start >= task.start_day and task.last_date >= end)
 
     def get_tasks(self, week):
         end_date = WeekSerializer.saturday(week.monday)

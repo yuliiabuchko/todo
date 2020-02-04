@@ -99,7 +99,7 @@ export const tokenConfig = getState => {
       'Content-Type': 'application/json'
     }
   };
-
+  console.log(token);
   if (token) {
     config.headers['Authorization'] = `Token ${token}`;
   }

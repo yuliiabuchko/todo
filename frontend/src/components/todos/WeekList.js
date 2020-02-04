@@ -174,17 +174,21 @@ class WeekList extends Component {
     renderWeekWithNoTasks(monday) {
         let res = [];
         res.push(<div className="ui center aligned header"><h3>Week from {monday}</h3></div>)
-        res.push(<div className="ui container"><div className="ui visible message">
-            <p>No tasks for this week</p>
-        </div></div>);
+        res.push(<div className="ui container" style={{marginTop: 5}}>
+            <div className="ui visible message">
+                <p>No tasks for this week</p>
+            </div>
+        </div>);
         return res;
     }
 
     renderWeekWithNoEvents() {
         let res = [];
-        res.push(<div className="ui container"><div className="ui visible message">
-            <p>No events for this week</p>
-        </div></div>)
+        res.push(<div className="ui container " style={{marginTop: 5}}>
+            <div className="ui visible message">
+                <p>No events for this week</p>
+            </div>
+        </div>)
         return res;
     }
 
@@ -252,10 +256,25 @@ class WeekList extends Component {
         );
     }
 
+    renderAddingButtons() {
+        return (
+            <div className="ui container" style={{paddingBottom: 10, paddingTop: 10}}>
+                <Link to='/'>
+                    <button className="ui right floated button" >Add task</button>
+                </Link>
+                <Link to='/events'>
+                <button className="ui left floated button">Add event</button>
+                </Link>
+            </div>
+
+        )
+    }
+
     weekPart(week) {
         let res = []
         res.push(this.renderTaskTable(week));
         res.push(this.renderEventsList(week));
+        res.push(this.renderAddingButtons())
         return res;
 
     }
